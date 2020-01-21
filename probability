@@ -1,0 +1,23 @@
+#setting
+A=0.00022
+B=2.7*10^-6
+C=1.124
+
+# for two person
+mu=function(t,x){A+B*C^(x+t)}
+tpxy=function(t,x,y){
+  inner=exp(-integrate(function(s){mu(s,x)+mu(s,y)},0,t)$value)
+  return(inner)
+}
+
+# for single
+#direct
+tpx=function(t,x){exp(-A*t-(B*C^(x+t)-B*C^x)/log(C))}
+# containing mu
+mu = function(t) A+B*C^t
+tpx = function (t,x){
+  inner = function(k)A + B * C^k
+  inner2 = Vectorize(integrate(inner,x,t+x)$value)
+  return(exp(-inner2))
+}
+
