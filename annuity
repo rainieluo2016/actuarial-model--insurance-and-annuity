@@ -1,0 +1,9 @@
+# annuity due
+a_due=function(age,term,year,i){
+  a = 0
+  for (b in 0:(term*year-1)){
+    every = tpx(b/term,age)/((1+i)^(b/term))/term
+    a = a + every
+  }
+  return(a)
+}
